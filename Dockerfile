@@ -19,11 +19,13 @@ apt-get install wget unzip git -y; \
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 RUN mkdir ${PENTAHO_HOME};
 # Download Pentaho BI Server
-RUN /usr/bin/wget --progress=dot:giga "http://downloads.sourceforge.net/project/pentaho/Pentaho%20${BISERVER_VERSION}/server/pentaho-server-ce-${BISERVER_TAG}.zip" -o /tmp/biserver-ce-${BISERVER_TAG}.zip; \
-/usr/bin/unzip -q /tmp/biserver-ce-${BISERVER_TAG}.zip -d $PENTAHO_HOME; \
-rm -f /tmp/biserver-ce-${BISERVER_TAG}.zip $PENTAHO_HOME/biserver-ce/promptuser.sh; \
-sed -i -e 's/\(exec ".*"\) start/\1 run/' $PENTAHO_HOME/biserver-ce/tomcat/bin/startup.sh; \
-chmod +x $PENTAHO_HOME/biserver-ce/start-pentaho.sh
+RUN /usr/bin/wget --progress=dot:giga \
+"http://downloads.sourceforge.net/project/pentaho/Pentaho%20${BISERVER_VERSION}/server/pentaho-server-ce-${BISERVER_TAG}.zip" \
+-o /tmp/pentaho-server-ce-${BISERVER_TAG}.zip; \
+/usr/bin/unzip -q /tmp/pentaho-server-ce-${BISERVER_TAG}.zip -d $PENTAHO_HOME; \
+rm -f /tmp/pentaho-server-ce-${BISERVER_TAG}.zip $PENTAHO_HOME/pentaho-server/promptuser.sh; \
+sed -i -e 's/\(exec ".*"\) start/\1 run/' $PENTAHO_HOME/pentaho-server/tomcat/bin/startup.sh; \
+chmod +x $PENTAHO_HOME/pentaho-server/start-pentaho.sh
 RUN useradd -s /bin/bash -d ${PENTAHO_HOME} pentaho; chown -R pentaho:pentaho ${PENTAHO_HOME};
 
 #Always non-root user
@@ -31,4 +33,4 @@ USER pentaho
 WORKDIR /opt/pentaho
 EXPOSE 8080
 
-CMD ["sh", "/opt/pentaho/biserver-ce/start-pentaho.sh"]
+CMD ["sh", "/opt/pentaho/pentaho-server/start-pentaho.sh"]
