@@ -19,8 +19,7 @@ apt-get install wget unzip git -y; \
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 RUN mkdir ${PENTAHO_HOME};
 # Download Pentaho BI Server
-RUN /usr/bin/wget --progress=dot:giga http://downloads.sourceforge.net/project/pentaho/Pentaho%20${BISERVER_VERSION}/server/pentaho-server-ce-${BISERVER_TAG}.zip
--o /tmp/biserver-ce-${BISERVER_TAG}.zip; \
+RUN /usr/bin/wget --progress=dot:giga "http://downloads.sourceforge.net/project/pentaho/Pentaho%20${BISERVER_VERSION}/server/pentaho-server-ce-${BISERVER_TAG}.zip" -o /tmp/biserver-ce-${BISERVER_TAG}.zip; \
 /usr/bin/unzip -q /tmp/biserver-ce-${BISERVER_TAG}.zip -d $PENTAHO_HOME; \
 rm -f /tmp/biserver-ce-${BISERVER_TAG}.zip $PENTAHO_HOME/biserver-ce/promptuser.sh; \
 sed -i -e 's/\(exec ".*"\) start/\1 run/' $PENTAHO_HOME/biserver-ce/tomcat/bin/startup.sh; \
