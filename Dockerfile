@@ -21,7 +21,7 @@ RUN mkdir ${PENTAHO_HOME};
 # Download Pentaho BI Server
 RUN /usr/bin/wget --progress=dot:giga \
 "http://downloads.sourceforge.net/project/pentaho/Pentaho%20${BISERVER_VERSION}/server/pentaho-server-ce-${BISERVER_TAG}.zip" \
--o /tmp/pentaho-server-ce-${BISERVER_TAG}.zip; \
+-O /tmp/pentaho-server-ce-${BISERVER_TAG}.zip; \
 /usr/bin/unzip -q /tmp/pentaho-server-ce-${BISERVER_TAG}.zip -d $PENTAHO_HOME; \
 rm -f /tmp/pentaho-server-ce-${BISERVER_TAG}.zip $PENTAHO_HOME/pentaho-server/promptuser.sh; \
 sed -i -e 's/\(exec ".*"\) start/\1 run/' $PENTAHO_HOME/pentaho-server/tomcat/bin/startup.sh; \
